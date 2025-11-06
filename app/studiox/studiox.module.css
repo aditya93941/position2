@@ -1,0 +1,95 @@
+.studioxContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.backgroundVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.logo {
+    z-index: 10;
+    position: relative;
+    text-align: center;
+}
+
+
+.textOverlay {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
+
+}
+
+.h1 {
+    font-size: 5rem;
+    font-weight: bold;
+    line-height: 5.5rem;
+
+}
+
+.h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-top: 1.5rem;
+}
+
+.h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    padding-top: 1.5rem;
+
+}
+
+.button1 {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #fff;
+  background-color: transparent;
+  padding: 10px 20px;
+  border: 1px solid #fff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 20px;
+}
+.button1:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.button2 {
+    display: flex;
+    flex-direction: column;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #fff;
+background: linear-gradient(134deg, rgba(126, 65, 163, 1) 6%, rgba(230, 39, 39, 1) 88%);  padding: 10px 20px;
+  border: 1px solid #fff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 20px;
+}
+.button2:hover {
+background: linear-gradient(285deg,rgba(126, 65, 163, 1) 6%, rgba(230, 39, 39, 1) 88%);
+}
+

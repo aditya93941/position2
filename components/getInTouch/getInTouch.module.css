@@ -1,0 +1,34 @@
+.contact_us {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #6441a5 0%, #d3342e 100%);
+  width: 100vw;
+  height: 310px;
+  text-align: center;
+}
+
+.h1 {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 26px;
+}
+
+.button {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #fff;
+  background-color: transparent;
+  padding: 10px 20px;
+  border: 1px solid #fff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.button:hover {
+  background-color: #fff;
+  color: #000;
+}
