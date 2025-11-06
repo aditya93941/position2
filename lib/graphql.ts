@@ -7,8 +7,8 @@ export const GET_ALL_BLOGS = gql`
   query {
     blogs {
       nodes {
-        date
         title
+        slug
         featuredImage {
           node {
             sourceUrl
