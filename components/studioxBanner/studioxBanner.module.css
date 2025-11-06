@@ -92,7 +92,7 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     color: #fff;
-    background: linear-gradient(134deg, rgba(126, 65, 163, 1) 6%, rgba(230, 39, 39, 1) 88%);
+    background: linear-gradient(130.35deg, #6441A5 1.92%, #D3342E 98.08%);
     padding: 10px 20px;
     border: 0px solid #fff;
     border-radius: 25px;
@@ -102,5 +102,5 @@
 }
 
 .button2:hover {
-    background: linear-gradient(285deg, rgba(126, 65, 163, 1) 6%, rgba(230, 39, 39, 1) 88%);
+    background: linear-gradient(130.35deg, #D3342E 1.92%, #6441A5 98.08%)
 }
