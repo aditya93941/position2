@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import styles from "./studioxCarousal.module.css";
 import Image from "next/image";
 import "../../app/globals.css";
@@ -41,8 +41,6 @@ export default function StudioxCarousal() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [progress, setProgress] = useState(0);
-  const isManualClick = useRef(false);
-  const progressFillRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -52,47 +50,18 @@ export default function StudioxCarousal() {
   }, []);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout | null = null;
-    let interval: NodeJS.Timeout | null = null;
-
-    // If it's a manual click, disable transition temporarily to avoid visual jump
-    if (isManualClick.current) {
-      // Use setTimeout to ensure DOM is updated and ref is attached
-      timeoutId = setTimeout(() => {
-        if (progressFillRef.current) {
-          progressFillRef.current.style.transition = 'none';
-          setProgress(0);
-          // Re-enable transition after reset is complete
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              if (progressFillRef.current) {
-                progressFillRef.current.style.transition = '';
-              }
-            });
-          });
-        } else {
-          setProgress(0);
-        }
-        isManualClick.current = false;
-      }, 0);
-    } else {
-      setProgress(0);
-    }
-
-    interval = setInterval(() => {
+    setProgress(0);
+    const interval = setInterval(() => {
       setProgress((p) => {
         if (p >= 100) {
-          setActiveIndex((i) => (i + 3) % videos.length);
+          setActiveIndex((i) => (i+3) % videos.length);
           return 0;
         }
         return p + 1;
+
       });
     }, 100);
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-      if (interval) clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [activeIndex]);
 
   return (
@@ -123,10 +92,7 @@ export default function StudioxCarousal() {
             {videos.map((v, i) => (
               <div
                 key={v.id}
-                onClick={() => {
-                  isManualClick.current = true;
-                  setActiveIndex(i);
-                }}
+                onClick={() => setActiveIndex(i)}
                 className={`${styles.control} ${
                   i === activeIndex ? styles.active : ""
                 }`}
@@ -141,7 +107,6 @@ export default function StudioxCarousal() {
                     {i === activeIndex && (
                       <div className={styles.progressBar}>
                         <div
-                          ref={progressFillRef}
                           className={styles.progressFill}
                           style={{ width: `${progress}%` }}
                         ></div>
