@@ -16,13 +16,13 @@ export default function StudioxBanner() {
                 <div className={styles.textOverlay}>
                     <Image src="https://www.position2.com/wp-content/uploads/2025/08/studiox-new-logo.svg" alt="logo" className={styles.logo} width={194} height={164} />
                     <h1 className={styles.h1}>Make Your Customers <br />Fall in Love with Your Product.</h1>
-                    <h3 className={styles.h3}>
+                    <p className={styles.p}>
                         Before they hold it. Before they even know they need it. StudioX makes them feel it.
-                    </h3>
+                    </p>
                     <h2 className={styles.h2}>Work smarter. Look cooler. Launch faster.</h2>
                     <div className={styles.buttonWrapper}>
-                        <Link href="/" className={styles.button1}>See in Action</Link>
-                        <Link href="/" className={styles.button2}>Try it now</Link>
+                        <Link href="https://studiox.position2.com" className={styles.button1}>See it in Action</Link>
+                        <Link href="https://studiox.position2.com" className={styles.button2}>Try it Now</Link>
                     </div>
                 </div>
             </div>

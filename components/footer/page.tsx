@@ -5,20 +5,10 @@ import { FaFacebookF, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 export default function Footer() {
   return (
     <>
-      
+
 
       <div className={styles.footer}>
-        <div className={styles.newsletter}>
-          <h2>Subscribe to our newsletter</h2>
-          <div className={styles.form}>
-            <input
-              type="email"
-              placeholder="Email Address"
-              className={styles.input}
-            />
-            <button className={styles.submit}>Submit</button>
-          </div>
-        </div>
+        
 
         <hr className={styles.line} />
 

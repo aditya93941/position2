@@ -1,9 +1,9 @@
-.blogFilterWrapper{
+.blogFilterWrapper {
     width: 100%;
     margin-top: 100px;
-}
-
-.blogFilterList{
+  }
+  
+  .blogFilterList {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -19,35 +19,44 @@
     list-style: none;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-.blogFilterHeader{
+  }
+  
+  .blogFilterHeader {
     cursor: pointer;
     user-select: none;
     transition: opacity 0.2s;
-}
-
-
-
-.blogFilterContent{
-    min-height: 50px;
-}
-
-.blogFilterContent .blogFilterList{
+  }
+  
+  /* Collapsible container (controls height) */
+  .blogFilterContainer {
+    overflow: hidden;
+    height: 0;
+    transition: height 350ms cubic-bezier(.2,.8,.2,1);
+  }
+  
+  /* Inner content that we measure (always present) */
+ 
+  
+  /* when you want to show visual separators below each collapsed area */
+  .blogFilterSeparator {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 0;
+  }
+  
+  /* items list inside the inner */
+  .blogFilterContentList {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
     padding: 0;
     margin: 0;
     margin-bottom: 20px;
-
-}
-
-.blogFilterContent .blogFilterList li{
     list-style: none;
-}
-
-.blogFilterItem{
+    flex-wrap: wrap;
+  }
+  
+  .blogFilterItem {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -55,41 +64,34 @@
     border-radius: 50px;
     padding: 6px 15px;
     font-size: 16px;
-    gap: 5px;
+    gap: 8px;
     text-decoration: none;
     color: inherit;
-    transition: all 0.2s;
-}
-
-
-.blogFilterDot{
+    transition: all 0.5s;
+  }
+  
+  .blogFilterDot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
     background-color: #DEDEDE;
-}
-
-.blogFilterSeparator{
-    border: none;
-    border-top: 1px solid #e0e0e0;
-    margin: 0;
-}
-
-
-.blogFilterCloseButtonContainer{
+  }
+  
+  .blogFilterCloseButtonContainer {
     display: flex;
     justify-content: flex-end;
-}
-
-.blogFilterCloseButton{
+    margin-bottom: 8px;
+  }
+  
+  .blogFilterCloseButton {
     cursor: pointer;
     color: #ffffff;
     font-size: 12px;
-    border: 1px solid #bbbbbb;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     background-color: gray;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+  }
+  
