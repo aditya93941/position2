@@ -1,0 +1,111 @@
+.footer {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    margin: 50px;
+  }
+  
+  /* Parallax background */
+  .footer__container1 {
+    background-image: url("https://www.position2.com/wp-content/uploads/2025/08/studiox-webcam.webp");
+    min-height: 90vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    z-index: 0;
+  }
+  
+  /* Overlay on top of image */
+  .footer__container1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* dark overlay */
+    z-index: 1;
+  }
+  
+  /* Text content */
+  .content_wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2; /* higher than overlay */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+    justify-content: center;
+  }
+  
+  .content_container {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    h2{
+        color: #fff;
+        font-size: 48px;
+        font-weight: 600;
+        line-height: 56px;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+    .p1{
+        color: #fff;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 26px;
+        text-align: center;
+        max-width:1000px;
+        margin-bottom: 20px;
+    }
+    .p2{
+        color: #fff;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24px;
+        text-align: center;
+    }
+  }
+  
+  .footer__container2 {
+    background-image: url("https://www.position2.com/wp-content/uploads/2025/08/headphone_macro.jpg");    min-height: 100vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    z-index: 0;
+    height: 50vh;
+  }
+  
+  /* Overlay on top of image */
+  .footer__container2::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* dark overlay */
+    z-index: 1;
+  }
+  
+  /* Text content */
+  .content_wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2; /* higher than overlay */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+    justify-content: center;
+  }
+  
