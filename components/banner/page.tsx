@@ -4,34 +4,34 @@ import styles from "./banner.module.css";
 import "../../app/globals.css";
 const banner = () => {
   return (
-    <div className={styles.banner}>
+    <header className={styles.banner} role="banner">
       <div className="container">
         <div className={styles.bannerWrapper}>
-          <div className={styles.image}>
+          <div className={styles.image} aria-hidden="true">
             <Image
               src="https://www.position2.com/wp-content/uploads/2024/06/white-design-element-one.svg"
-              alt="banner"
+              alt=""
               width={59}
               height={303}
               className={styles.image1}
             />
             <Image
               src="https://www.position2.com/wp-content/uploads/2024/06/white-design-element-two.svg"
-              alt="banner"
+              alt=""
               width={143}
               height={303}
               className={styles.image2}
             />
             <Image
               src="https://www.position2.com/wp-content/uploads/2024/06/white-design-element-three.svg"
-              alt="banner"
+              alt=""
               width={214}
               height={303}
               className={styles.image3}
             />
             <Image
               src="https://www.position2.com/wp-content/uploads/2024/06/blog.svg"
-              alt="banner"
+              alt=""
               width={303}
               height={303}
               className={styles.image4}
@@ -42,13 +42,13 @@ const banner = () => {
             <p className={styles.description}>
             Elevate your marketing game with our AI-driven expert insights
             </p>
-            <Link href="/" className={styles.button}>
+            <Link href="/" className={styles.button} aria-label="Get in touch with Position²">
               Get in touch
             </Link>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

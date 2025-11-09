@@ -61,17 +61,41 @@ export default function BlogFilter() {
   };
 
   return (
-    <div className="container">
+    <nav className="container" aria-label="Blog filters">
       <div className={styles.blogFilterWrapper}>
-        <ul className={styles.blogFilterList}>
-          <li onClick={() => toggleSection('categories')} className={styles.blogFilterHeader}>
-            Categories +
+        <ul className={styles.blogFilterList} role="list">
+          <li role="none">
+            <button 
+              onClick={() => toggleSection('categories')} 
+              className={styles.blogFilterHeader}
+              aria-expanded={activeSection === 'categories'}
+              aria-controls="categories-filter"
+              aria-label="Toggle categories filter"
+            >
+              Categories {activeSection === 'categories' ? '−' : '+'}
+            </button>
           </li>
-          <li onClick={() => toggleSection('authors')} className={styles.blogFilterHeader}>
-            Authors +
+          <li role="none">
+            <button 
+              onClick={() => toggleSection('authors')} 
+              className={styles.blogFilterHeader}
+              aria-expanded={activeSection === 'authors'}
+              aria-controls="authors-filter"
+              aria-label="Toggle authors filter"
+            >
+              Authors {activeSection === 'authors' ? '−' : '+'}
+            </button>
           </li>
-          <li onClick={() => toggleSection('archive')} className={styles.blogFilterHeader}>
-            Archive +
+          <li role="none">
+            <button 
+              onClick={() => toggleSection('archive')} 
+              className={styles.blogFilterHeader}
+              aria-expanded={activeSection === 'archive'}
+              aria-controls="archive-filter"
+              aria-label="Toggle archive filter"
+            >
+              Archive {activeSection === 'archive' ? '−' : '+'}
+            </button>
           </li>
         </ul>
       </div>
@@ -79,21 +103,34 @@ export default function BlogFilter() {
       <hr className={styles.blogFilterSeparator} />
 
       {/* CATEGORIES */}
-      <div ref={(el :any) => (refs.current.categories = el)} className={styles.blogFilterContainer}>
+      <div 
+        ref={(el :any) => (refs.current.categories = el)} 
+        className={styles.blogFilterContainer}
+        id="categories-filter"
+        role="region"
+        aria-labelledby="categories-heading"
+        aria-hidden={activeSection !== 'categories'}
+      >
         <div className={styles.blogFilterInner}>
           <div className={styles.blogFilterCloseButtonContainer}>
             <button
               className={styles.blogFilterCloseButton}
               onClick={() => setActiveSection(null)}
+              aria-label="Close categories filter"
             >
-              X
+              <span aria-hidden="true">×</span>
             </button>
           </div>
-          <ul className={styles.blogFilterContentList}>
+          <h3 id="categories-heading" className="sr-only">Categories</h3>
+          <ul className={styles.blogFilterContentList} role="list">
             {categories.map((item, i) => (
-              <li key={i}>
-                <Link href="#" className={styles.blogFilterItem}>
-                  <div className={styles.blogFilterDot}></div>
+              <li key={i} role="listitem">
+                <Link 
+                  href={`/blog?category=${encodeURIComponent(item)}`} 
+                  className={styles.blogFilterItem}
+                  aria-label={`Filter by category: ${item}`}
+                >
+                  <div className={styles.blogFilterDot} aria-hidden="true"></div>
                   {item} 
                 </Link>
               </li>
@@ -104,21 +141,34 @@ export default function BlogFilter() {
       </div>
 
       {/* AUTHORS */}
-      <div ref={(el :any) => (refs.current.authors = el)} className={styles.blogFilterContainer}>
+      <div 
+        ref={(el :any) => (refs.current.authors = el)} 
+        className={styles.blogFilterContainer}
+        id="authors-filter"
+        role="region"
+        aria-labelledby="authors-heading"
+        aria-hidden={activeSection !== 'authors'}
+      >
         <div className={styles.blogFilterInner}>
           <div className={styles.blogFilterCloseButtonContainer}>
             <button
               className={styles.blogFilterCloseButton}
               onClick={() => setActiveSection(null)}
+              aria-label="Close authors filter"
             >
-              X
+              <span aria-hidden="true">×</span>
             </button>
           </div>
-          <ul className={styles.blogFilterContentList}>
+          <h3 id="authors-heading" className="sr-only">Authors</h3>
+          <ul className={styles.blogFilterContentList} role="list">
             {authors.map((item, i) => (
-              <li key={i}>
-                <Link href="#" className={styles.blogFilterItem}>
-                  <div className={styles.blogFilterDot}></div>
+              <li key={i} role="listitem">
+                <Link 
+                  href={`/blog?author=${encodeURIComponent(item)}`} 
+                  className={styles.blogFilterItem}
+                  aria-label={`Filter by author: ${item}`}
+                >
+                  <div className={styles.blogFilterDot} aria-hidden="true"></div>
                   {item}
                 </Link>
               </li>
@@ -129,21 +179,34 @@ export default function BlogFilter() {
       </div>
 
       {/* ARCHIVE */}
-      <div ref={(el :any) => (refs.current.archive = el)} className={styles.blogFilterContainer}>
+      <div 
+        ref={(el :any) => (refs.current.archive = el)} 
+        className={styles.blogFilterContainer}
+        id="archive-filter"
+        role="region"
+        aria-labelledby="archive-heading"
+        aria-hidden={activeSection !== 'archive'}
+      >
         <div className={styles.blogFilterInner}>
           <div className={styles.blogFilterCloseButtonContainer}>
             <button
               className={styles.blogFilterCloseButton}
               onClick={() => setActiveSection(null)}
+              aria-label="Close archive filter"
             >
-              X
+              <span aria-hidden="true">×</span>
             </button>
           </div>
-          <ul className={styles.blogFilterContentList}>
+          <h3 id="archive-heading" className="sr-only">Archive</h3>
+          <ul className={styles.blogFilterContentList} role="list">
             {archive.map((item, i) => (
-              <li key={i}>
-                <Link href="#" className={styles.blogFilterItem}>
-                  <div className={styles.blogFilterDot}></div>
+              <li key={i} role="listitem">
+                <Link 
+                  href={`/blog?year=${item.year}`} 
+                  className={styles.blogFilterItem}
+                  aria-label={`Filter by year ${item.year}, ${item.count} posts`}
+                >
+                  <div className={styles.blogFilterDot} aria-hidden="true"></div>
                   {item.year} ({item.count})
                 </Link>
               </li>
@@ -152,6 +215,6 @@ export default function BlogFilter() {
           <hr className={styles.blogFilterSeparator} />
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

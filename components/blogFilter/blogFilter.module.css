@@ -25,6 +25,19 @@
     cursor: pointer;
     user-select: none;
     transition: opacity 0.2s;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+  }
+
+  .blogFilterHeader:focus {
+    outline: 2px solid #6441A5;
+    outline-offset: 2px;
+    border-radius: 2px;
   }
   
   /* Collapsible container (controls height) */
@@ -35,7 +48,9 @@
   }
   
   /* Inner content that we measure (always present) */
- 
+  .blogFilterInner {
+    padding: 0;
+  }
   
   /* when you want to show visual separators below each collapsed area */
   .blogFilterSeparator {

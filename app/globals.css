@@ -223,3 +223,29 @@ h6 {
   font-weight: 600;
   line-height: 1.5;
 }
+
+/* Screen reader only - for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #6441A5;
+  outline-offset: 2px;
+}
+
+a:focus,
+button:focus {
+  outline: 2px solid #6441A5;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
