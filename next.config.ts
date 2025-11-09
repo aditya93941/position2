@@ -61,7 +61,8 @@ const nextConfig: NextConfig = {
   // Turbopack configuration (Next.js 16 uses Turbopack by default)
   // Turbopack automatically handles code splitting and optimization better than webpack
   turbopack: {
-    // Empty config to silence warning - Turbopack handles optimization automatically
+    // Set root directory to silence lockfile warning
+    root: __dirname,
   },
 };
 
