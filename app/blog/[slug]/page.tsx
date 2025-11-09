@@ -1,5 +1,10 @@
-import { client, GET_ALL_BLOGS } from "../../../lib/graphql";
+import { getBlogBySlug } from "../../../lib/graphql";
 import Image from "next/image";
+
+// Route segment config - Next.js 16 best practices
+export const revalidate = 60; // ISR: Re-generate at most every 60 seconds
+export const dynamic = 'force-static'; // Prefer static generation
+export const dynamicParams = true; // Allow dynamic params not generated at build time
 
 interface Params {
   params: Promise<{ slug: string }> | { slug: string };
@@ -9,24 +14,7 @@ export default async function BlogDetailsPage({ params }: Params) {
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams.slug;
 
-  const data = await client.request(
-    `
-    query GetBlogBySlug($slug: ID!) {
-      blog(id: $slug, idType: SLUG) {
-        date
-        title
-        content
-        featuredImage {
-          node {
-            sourceUrl
-            altText
-          }
-        }
-      }
-    }
-  `,
-    { slug }
-  );
+  const data = await getBlogBySlug(slug);
 
   const blog = data.blog;
 

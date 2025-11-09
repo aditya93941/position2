@@ -8,6 +8,9 @@ import Studiox3D from '@/components/studiox3D/page';
 import StudioxFeatures from '@/components/studioxFeatures/page';
 import Footer from '@/components/footer/page';
 
+// Static page - no revalidation needed (fully static)
+// If content changes, use: export const revalidate = 3600; // 1 hour
+
 export const page = () => {
     return (
         <>
