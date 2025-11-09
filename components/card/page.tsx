@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "./card.module.css";
 
 export default async function CardComponent() {
-  const data = await getAllBlogs();
+  const data: any = await getAllBlogs();
   const blogs = data.blogs.nodes;
   console.log(blogs);
   const formattedDate = new Date(blogs[0].date).toLocaleDateString("en-US", {
