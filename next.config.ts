@@ -58,39 +58,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Reduce JavaScript bundle size
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      // Optimize client bundle
-      config.optimization = {
-        ...config.optimization,
-        moduleIds: 'deterministic',
-        runtimeChunk: 'single',
-        splitChunks: {
-          chunks: 'all',
-          cacheGroups: {
-            default: false,
-            vendors: false,
-            // Vendor chunk
-            vendor: {
-              name: 'vendor',
-              chunks: 'all',
-              test: /node_modules/,
-              priority: 20,
-            },
-            // Common chunk
-            common: {
-              name: 'common',
-              minChunks: 2,
-              chunks: 'all',
-              priority: 10,
-              reuseExistingChunk: true,
-            },
-          },
-        },
-      };
-    }
-    return config;
+  // Turbopack configuration (Next.js 16 uses Turbopack by default)
+  // Turbopack automatically handles code splitting and optimization better than webpack
+  turbopack: {
+    // Empty config to silence warning - Turbopack handles optimization automatically
   },
 };
 
