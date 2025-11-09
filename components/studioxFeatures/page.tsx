@@ -3,11 +3,11 @@ import Image from "next/image";
 
 export default function StudioxFeatures() {
   return (
-    <div className="studiox-web">
+    <section className="studiox-web" aria-labelledby="only-in-studiox-heading">
       <div className="container">
         <div className={styles.studioxFeaturesWrapper}>
           <div className={styles.studioxFeaturesTitleWrapper}>
-            <h2 className={styles.studioxFeaturesTitle}>Only in</h2>
+            <h2 className={styles.studioxFeaturesTitle} id="only-in-studiox-heading">Only in</h2>
             <Image
               src="https://www.position2.com/wp-content/uploads/2025/08/studiox-new-logo.svg"
               alt="StudioX Features"
@@ -141,6 +141,6 @@ export default function StudioxFeatures() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -39,7 +39,7 @@
 }
 
 .h1 {
-    font-size: 60px;
+    font-size: 3.75rem; /* h1 size - 60px, largest */
     font-weight: bold;
     line-height: 1;
     margin-bottom: 30px;
@@ -47,7 +47,7 @@
 }
 
 .h2 {
-    font-size: 24px;
+    font-size: 1.5rem; /* paragraph/tagline size - 24px */
     font-weight: 600;
     margin-bottom: 10px;
 }

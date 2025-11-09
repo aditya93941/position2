@@ -1,10 +1,10 @@
-import { getAllBlogs } from "../../lib/graphql";
+import { client, GET_ALL_BLOGS } from "../../lib/graphql";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./card.module.css";
 
 export default async function CardComponent() {
-  const data: any = await getAllBlogs();
+  const data = await client.request(GET_ALL_BLOGS);
   const blogs = data.blogs.nodes;
   console.log(blogs);
   const formattedDate = new Date(blogs[0].date).toLocaleDateString("en-US", {

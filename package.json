@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "test:web-vitals": "npm run dev",
-    "test:build": "npm run build && npm run start"
+    "lint": "eslint"
   },
   "dependencies": {
     "@google/model-viewer": "^4.1.0",

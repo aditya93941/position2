@@ -4,26 +4,24 @@ import StudioxCarousal from '@/components/studioxCarousal/page';
 import StudioxBattleTested from '@/components/studioxBattleTested/page';
 import StudioxGotALaunch from '@/components/studioxGotALaunch/page';
 import StudioxFooter from '@/components/studoxFooter/page'
-// import Studiox3D from '@/components/studiox3D/page';
+import Studiox3D from '@/components/studiox3D/page';
 import StudioxFeatures from '@/components/studioxFeatures/page';
 import Footer from '@/components/footer/page';
-
-// Static page - no revalidation needed (fully static)
-// If content changes, use: export const revalidate = 3600; // 1 hour
 
 export const page = () => {
     return (
         <>
             <StudioxHeader/>
-            <StudioxBanner />
-            {/* <Studiox3D /> */}
-            <StudioxCarousal />
-            <StudioxFeatures />
-            <StudioxBattleTested />
-            <StudioxGotALaunch />
-            <StudioxFooter />
+            <main>
+                <StudioxBanner />
+                <Studiox3D />
+                <StudioxCarousal />
+                <StudioxFeatures />
+                <StudioxBattleTested />
+                <StudioxGotALaunch />
+                <StudioxFooter />
+            </main>
             <Footer />
-
         </>
     )
 }

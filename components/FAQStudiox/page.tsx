@@ -71,27 +71,33 @@ const FAQAccordion: React.FC = () => {
   };
 
   return (
-    <section className={styles.faqSection}>
+    <section className={styles.faqSection} aria-labelledby="faq-heading">
       <div className={styles.container}>
-        <h2 className={styles.title}>Frequently Asked Questions</h2>
+        <h2 className={styles.title} id="faq-heading">Frequently Asked Questions</h2>
         <div className={styles.accordion}>
           {faqs.map((faq, index) => (
             <div key={index} className={styles.item}>
               <button
                 className={styles.question}
                 onClick={() => toggleFAQ(index)}
+                aria-expanded={activeIndex === index}
+                aria-controls={`faq-answer-${index}`}
+                id={`faq-question-${index}`}
               >
                 <span dangerouslySetInnerHTML={{ __html: faq.question }} />
                 {activeIndex === index ? (
-                  <ChevronUp className={styles.icon} />
+                  <ChevronUp className={styles.icon} aria-hidden="true" />
                 ) : (
-                  <ChevronDown className={styles.icon} />
+                  <ChevronDown className={styles.icon} aria-hidden="true" />
                 )}
               </button>
 
               <div
                 className={styles.answer}
                 ref={(el :any) => (contentRefs.current[index] = el)}
+                id={`faq-answer-${index}`}
+                role="region"
+                aria-labelledby={`faq-question-${index}`}
               >
                 <div className={styles.textWrapper}>
                   <p

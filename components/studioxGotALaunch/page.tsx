@@ -21,11 +21,11 @@ const StudioxGotALaunch: FC = () => {
   }, [images.length]);
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container} aria-labelledby="got-a-launch-heading">
       <div className={styles.textSection}>
-        <h2 className={styles.heading}>Got a Launch?</h2>
+        <h2 className={styles.heading} id="got-a-launch-heading">Got a Launch?</h2>
         <div className={styles.content}>
-          <h3 className={styles.subheading}>Consumer Electronics</h3>
+          <p className={styles.subheading}>Consumer Electronics</p>
           <p className={styles.description}>
             From laptops and rugged PCs to smartphones, smart devices, and
             next-gen displays, Studio<sup>X</sup> brings engineering brilliance to life
@@ -56,19 +56,23 @@ const StudioxGotALaunch: FC = () => {
           </div>
         ))}
 
-        <div className={styles.dots}>
+        <div className={styles.dots} role="tablist" aria-label="Image carousel controls">
           {images.map((_, index) => (
-            <span
+            <button
               key={index}
               onClick={() => setCurrent(index)}
               className={`${styles.dot} ${
                 index === current ? styles.activeDot : ""
               }`}
-            ></span>
+              role="tab"
+              aria-selected={index === current}
+              aria-label={`View slide ${index + 1}`}
+              tabIndex={index === current ? 0 : -1}
+            ></button>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

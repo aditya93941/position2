@@ -5,13 +5,13 @@ import Link from 'next/link'
 
 const StudioxBattleTested = () => {
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper} aria-labelledby="battle-tested-heading">
       <div className={styles.textSection}>
-        <h1 className={styles.h1}>Battle Tested</h1>
-        <h2 className={styles.h2}>
+        <h2 className={styles.h1} id="battle-tested-heading">Battle Tested</h2>
+        <p className={styles.h2}>
           We care how things look, how they move and when they ship. We needed production control, storytelling<br />
           power and pixel perfection.
-        </h2>
+        </p>
         <h3 className={styles.h3}>
           Legacy Tools Didn't Cut It. So We Built a Tool That Did.
         </h3>
@@ -30,7 +30,7 @@ const StudioxBattleTested = () => {
             />
             
           </div>
-          <h4 className={styles.title}>Creative Meets Code</h4>
+          <h5 className={styles.title}>Creative Meets Code</h5>
           <p className={styles.description}>It delivers the looks. It works flawlessly.</p>
         </div>
 
@@ -45,7 +45,7 @@ const StudioxBattleTested = () => {
             />
             
           </div>
-          <h4 className={styles.title}>Real Engineering</h4>
+          <h5 className={styles.title}>Real Engineering</h5>
           <p className={styles.description}>Rock-solid infrastructure from launch pros.</p>
         </div>
 
@@ -61,7 +61,7 @@ const StudioxBattleTested = () => {
             />
             
           </div>
-          <h4 className={styles.title}>Launch Frontlines</h4>
+          <h5 className={styles.title}>Launch Frontlines</h5>
           <p className={styles.description}>Eats last-minute changes for breakfast.</p>
         </div>
 
@@ -75,11 +75,11 @@ const StudioxBattleTested = () => {
               className={styles.icon}
             />
           </div>
-          <h4 className={styles.title}>A Tool That Gets It</h4>
+          <h5 className={styles.title}>A Tool That Gets It</h5>
           <p className={styles.description}>What used to take days now takes minutes.</p>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
