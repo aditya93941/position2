@@ -25,12 +25,23 @@ const Page = () => {
         <div className={styles.content_wrapper}>
           <div className={styles.content_container}>
             <div className={styles.logo}>
-              <Image src="https://www.position2.com/wp-content/uploads/2025/08/studiox-new-logo.svg" alt="logo" className={styles.logo} width={194} height={164} />
+              <Image 
+                src="https://www.position2.com/wp-content/uploads/2025/08/studiox-new-logo.svg" 
+                alt="StudioX logo" 
+                className={styles.logo} 
+                width={194} 
+                height={164}
+                loading="lazy"
+              />
             </div>
             <h2>Make Something Beautiful</h2>
             <p>Bring your products to life in full 3D</p>
             <div>
-              <input type='' />
+              <input 
+                type="email" 
+                placeholder="Enter your email"
+                aria-label="Email address for StudioX updates"
+              />
             </div>
           </div>
         </div>

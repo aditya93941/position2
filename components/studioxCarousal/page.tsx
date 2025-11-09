@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import styles from "./studioxCarousal.module.css";
 import Image from "next/image";
 import "../../app/globals.css";
@@ -39,18 +39,79 @@ const videos = [
 
 export default function StudioxCarousal() {
   const [activeIndex, setActiveIndex] = useState(0);
+  // Initialize as false to match server render, will be set in useEffect
   const [isMobile, setIsMobile] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
+  // Set mounted state after hydration to prevent hydration mismatch
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    setIsMounted(true);
   }, []);
 
+  // Lazy load videos only when component is visible (after hydration)
   useEffect(() => {
+    if (!isMounted) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Load video for active index when visible
+            if (videoRefs.current[activeIndex]) {
+              videoRefs.current[activeIndex]?.load();
+            }
+          }
+        });
+      },
+      { rootMargin: "50px" }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [activeIndex, isMounted]);
+
+  // Set mobile state after hydration
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const handleResize = () => {
+      // Use requestAnimationFrame to batch DOM reads
+      requestAnimationFrame(() => {
+        setIsMobile(window.innerWidth < 768);
+      });
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMounted]);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     setProgress(0);
+    // Load video when index changes (after hydration)
+    if (videoRefs.current[activeIndex]) {
+      // Only load if element is in viewport (check via IntersectionObserver)
+      const video = videoRefs.current[activeIndex];
+      if (video) {
+        const checkVisibility = () => {
+          const rect = video.getBoundingClientRect();
+          const isInViewport = rect.top < window.innerHeight + 50 && rect.bottom > -50;
+          if (isInViewport) {
+            video.load();
+          }
+        };
+        // Small delay to ensure DOM is ready
+        setTimeout(checkVisibility, 100);
+      }
+    }
+
     const interval = setInterval(() => {
       setProgress((p) => {
         if (p >= 100) {
@@ -58,44 +119,66 @@ export default function StudioxCarousal() {
           return 0;
         }
         return p + 1;
-
       });
     }, 100);
     return () => clearInterval(interval);
-  }, [activeIndex]);
+  }, [activeIndex, isMounted]);
+
+  const handleControlClick = useCallback((index: number) => {
+    setActiveIndex(index);
+  }, []);
 
   return (
-    <div className="studiox-web">
+    <div className="studiox-web" ref={containerRef}>
       <div className="container">
         <div className={styles.studioxCarousalWrapper}>
           <div className={styles.studioxCarousalHeader}>
             <Image
               src="https://www.position2.com/wp-content/uploads/2025/08/studiox-new-logo.svg"
-              alt="studiox"
+              alt="StudioX logo"
               width={192}
               height={64}
+              loading="lazy"
             />
             <h2 className={styles.studioxCarousalTitle}>Features in Motion</h2>
           </div>
 
           <div className={styles.studioxCarousalItem}>
+            {/* Always render video element to match server/client HTML structure */}
+            {/* Use preload="none" to prevent loading until .load() is called */}
             <video
+              ref={(el) => {
+                videoRefs.current[activeIndex] = el;
+              }}
               src={videos[activeIndex].src}
               autoPlay
               muted
               loop
+              playsInline
+              preload="none"
               className={styles.studioxCarousalVideo}
-            ></video>
+              aria-label={`${videos[activeIndex].title}: ${videos[activeIndex].desc}`}
+            />
           </div>
 
-          <div className={styles.studioxCarousalControls}>
+          <div className={styles.studioxCarousalControls} role="tablist" aria-label="Video carousel controls">
             {videos.map((v, i) => (
-              <div
+              <button
                 key={v.id}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => handleControlClick(i)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleControlClick(i);
+                  }
+                }}
                 className={`${styles.control} ${
                   i === activeIndex ? styles.active : ""
                 }`}
+                role="tab"
+                aria-selected={i === activeIndex}
+                aria-label={`${v.title}: ${v.desc}`}
+                tabIndex={i === activeIndex ? 0 : -1}
               >
                 {isMobile ? (
                   <span className={styles.dot}></span>
@@ -114,9 +197,7 @@ export default function StudioxCarousal() {
                     )}
                   </>
                 )}
-                
-              </div>
-
+              </button>
             ))}
           </div>
         </div>

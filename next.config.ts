@@ -1,11 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable experimental cache components (Next.js 16)
-  // Uncomment to use 'use cache' directive:
-  // experimental: {
-  //   cacheComponents: true,
-  // },
+  // Compiler options for modern browsers (removes unnecessary polyfills)
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production" ? {
+      exclude: ["error", "warn"],
+    } : false,
+  },
+  // Optimize for modern browsers - reduces bundle size by removing polyfills
+  experimental: {
+    optimizePackageImports: ["lucide-react", "react-icons"],
+  },
   images: {
     remotePatterns: [
       {
@@ -52,6 +57,40 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
+  },
+  // Reduce JavaScript bundle size
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Optimize client bundle
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            // Vendor chunk
+            vendor: {
+              name: 'vendor',
+              chunks: 'all',
+              test: /node_modules/,
+              priority: 20,
+            },
+            // Common chunk
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+          },
+        },
+      };
+    }
+    return config;
   },
 };
 

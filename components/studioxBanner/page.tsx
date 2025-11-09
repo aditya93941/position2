@@ -6,7 +6,15 @@ export default function StudioxBanner() {
     return (
         <>
              <div className={styles.studioxContainer}>
-                <video loop autoPlay muted className={styles.backgroundVideo}>
+                <video 
+                    loop 
+                    autoPlay 
+                    muted 
+                    playsInline
+                    preload="none"
+                    className={styles.backgroundVideo}
+                    aria-label="StudioX product showcase background video"
+                >
                     <source
                         src="https://www.position2.com/wp-content/uploads/2025/09/studiox-desktop.mp4"
                         type="video/mp4"
@@ -14,15 +22,34 @@ export default function StudioxBanner() {
                 </video>
 
                 <div className={styles.textOverlay}>
-                    <Image src="https://www.position2.com/wp-content/uploads/2025/08/studiox-new-logo.svg" alt="logo" className={styles.logo} width={194} height={164} />
+                    <Image 
+                        src="https://www.position2.com/wp-content/uploads/2025/08/studiox-new-logo.svg" 
+                        alt="StudioX logo" 
+                        className={styles.logo} 
+                        width={194} 
+                        height={164}
+                        priority
+                    />
                     <h1 className={styles.h1}>Make Your Customers <br />Fall in Love with Your Product.</h1>
                     <p className={styles.p}>
                         Before they hold it. Before they even know they need it. StudioX makes them feel it.
                     </p>
                     <h2 className={styles.h2}>Work smarter. Look cooler. Launch faster.</h2>
                     <div className={styles.buttonWrapper}>
-                        <Link href="https://studiox.position2.com" className={styles.button1}>See it in Action</Link>
-                        <Link href="https://studiox.position2.com" className={styles.button2}>Try it Now</Link>
+                        <Link 
+                            href="https://studiox.position2.com" 
+                            className={styles.button1}
+                            aria-label="See StudioX in action"
+                        >
+                            See it in Action
+                        </Link>
+                        <Link 
+                            href="https://studiox.position2.com" 
+                            className={styles.button2}
+                            aria-label="Try StudioX now"
+                        >
+                            Try it Now
+                        </Link>
                     </div>
                 </div>
             </div>
