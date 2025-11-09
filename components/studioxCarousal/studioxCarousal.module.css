@@ -9,7 +9,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
   }
   
   .studioxCarousalTitle {
@@ -21,12 +20,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+  }
 
+  .videoContainer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   .studioxCarousalItem video {
-    
     border-radius: 16px;
     width: 100%;
     @media (min-width: 1200px) and (max-width: 1299.98px) {
@@ -37,11 +42,7 @@
     }
     @media (min-width:1400px) and (max-width:1599.98px) {
         width: 80%;
-        
     }
-
-      
-    
   }
   
   .studioxCarousalControls {
@@ -118,6 +119,10 @@ bottom: 0;
     background: grey;
   }
 
+  .mobileVideoTitle {
+    display: none;
+  }
+
   
   @media (max-width: 768px) {
     .control {
@@ -126,7 +131,7 @@ bottom: 0;
       min-width: auto;
     }
   }
-
+  
 /* Mobile Responsive Styles - Exact match from downloaded CSS */
 @media (min-width: 0) and (max-width: 767.98px) {
     .studioxCarousalWrapper {
@@ -137,41 +142,86 @@ bottom: 0;
     .studioxCarousalTitle {
         font-size: 32px;
         text-align: center;
-        padding: 0 15px;
+        margin: 20px 0 32px;
+    }
+
+    .videoContainer {
+        min-height: 300px;
+        width: 100%;
     }
 
     .studioxCarousalItem video {
         width: 100%;
-        border-radius: 12px;
+        border-radius: 8px;
         object-fit: contain;
-        height: 100%;
+        height: auto;
+        max-height: 400px;
+        min-height: 300px;
+    }
+
+    .mobileVideoTitle {
+        display: block;
+        font-size: 24px;
+        font-weight: 600;
+        color: #fff;
+        text-align: center;
+        padding: 0 15px;
+        min-height: 32px;
+    }
+
+    .studioxCarousalItem {
+        flex-direction: column;
+        touch-action: pan-x pan-y;
     }
 
     .studioxCarousalControls {
-        flex-direction: column;
-        gap: 12px;
-        padding: 0 15px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
     }
 
     .control {
-        max-width: 100%;
-        flex: 1 100%;
-        width: 100%;
+        max-width: none;
+        flex: 0 0 auto;
+        width: auto;
         background: none;
+        border: none;
         padding: 0;
         min-width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        background: #54524f;
+        border: none;
+        border-radius: 50%;
+        transition: background 0.3s;
+    }
+
+    .active .dot {
+        background: #878682;
     }
 
     .control h4 {
-        font-size: 14px;
+        display: none;
     }
 
     .control p {
-        font-size: 14px;
+        display: none;
     }
 
     .control .controlContent {
-        padding: 12px;
+        display: none;
+    }
+
+    .progressBar {
+        display: none;
     }
 }
 

@@ -12,9 +12,9 @@ const StudioxBattleTested = () => {
           We care how things look, how they move and when they ship. We needed production control, storytelling<br />
           power and pixel perfection.
         </p>
-        <h3 className={styles.h3}>
-          Legacy Tools Didn't Cut It. So We Built a Tool That Did.
-        </h3>
+        <p className={styles.h3}>
+          <strong>Legacy Tools Didn't Cut It. So We Built a Tool That Did.</strong>
+        </p>
       </div>
 
       <div className={styles.featuresContainer}>

@@ -94,4 +94,52 @@
     justify-content: center;
     align-items: center;
   }
+
+/* Mobile Responsive Styles */
+@media (min-width: 0) and (max-width: 767.98px) {
+    .blogFilterWrapper {
+        margin-top: 40px;
+        padding: 0 15px;
+    }
+
+    .blogFilterList {
+        font-size: 18px;
+        padding: 15px 0 5px 0;
+        gap: 8px;
+    }
+
+    .blogFilterContentList {
+        flex-direction: row;
+        gap: 8px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+
+    .blogFilterItem {
+        font-size: 14px;
+        padding: 6px 12px;
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .blogFilterDot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Tablet Responsive Styles */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+    .blogFilterWrapper {
+        margin-top: 60px;
+    }
+
+    .blogFilterList {
+        font-size: 20px;
+    }
+
+    .blogFilterItem {
+        font-size: 15px;
+    }
+}
   

@@ -72,11 +72,14 @@ const FAQAccordion: React.FC = () => {
 
   return (
     <section className={styles.faqSection} aria-labelledby="faq-heading">
-      <div className={styles.container}>
+      <div className="container">
         <h2 className={styles.title} id="faq-heading">Frequently Asked Questions</h2>
         <div className={styles.accordion}>
           {faqs.map((faq, index) => (
-            <div key={index} className={styles.item}>
+            <div 
+              key={index} 
+              className={`${styles.item} ${activeIndex === index ? styles.active : ''}`}
+            >
               <button
                 className={styles.question}
                 onClick={() => toggleFAQ(index)}

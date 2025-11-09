@@ -20,6 +20,8 @@
 .studiox3DWrapper{
     display: flex;
     flex-direction: row;
+    position: relative;
+    z-index: 2;
 }
 
 /* Match studiox-3d-content-section-wrapper from downloaded CSS */
@@ -142,18 +144,24 @@
         width: 100%;
         padding: 0 0 0 0 !important;
         margin-left: 0;
+        position: relative;
+        z-index: 1;
     }
 
     .modelViewer {
         width: 100%;
         max-width: 100%;
         height: 300px;
+        position: relative;
+        z-index: 1;
     }
 
     .placeholder {
         width: 100%;
         max-width: 100%;
         height: 300px;
+        position: relative;
+        z-index: 1;
     }
 
     .studiox3DRotateWrapper {
@@ -165,20 +173,28 @@
         font-size: 11px;
     }
 
+    .studiox3DContentTitleWrapper {
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+    }
+
     .studiox3DTitle {
         font-size: 32px;
         line-height: 40px;
         margin: 0 0 15px;
-        text-align: center;
+        text-align: left !important;
     }
 
     .studiox3DDescription {
         font-size: 16px;
         line-height: 24px;
         padding-top: 0 !important;
-        text-align: center;
+        text-align: left !important;
         width: 100%;
-        margin: 0 auto;
+        margin: 0;
         color: #fff !important;
         font-family: "Poppins", sans-serif;
         font-weight: 400;
@@ -189,22 +205,21 @@
         padding-top: 0 !important;
         margin-left: 0;
     }
-
     .studiox3DIconsWrapper {
         flex-direction: column;
         gap: 20px;
         padding: 30px 0;
-        align-items: center;
+        display: flex;
+    flex-direction: row !important;
     }
 
     .studiox3DIconsWrapper .studiox3DIconsItem {
-        text-align: center;
         font-size: 14px;
         line-height: 22px;
+        
     }
 
     .studiox3DButton {
-        width: 100%;
         max-width: 100%;
         font-size: 14px;
         padding: 10px 20px;

@@ -3,7 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(90deg, #6441a5 0%, #d3342e 100%);
+  background: linear-gradient(-30deg,
+    rgb(211, 52, 46) 36%,
+    rgb(100, 65, 165) 100%);
   width: 100vw;
   height: 310px;
   text-align: center;
@@ -37,8 +39,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 40px;
+  padding: 15px;
   gap: 15px;
+  background-color: #000;
 }
 
 .newsletter h2 {
@@ -83,4 +86,67 @@
 
 .submit:hover {
   transition: 0.3s ease;
+}
+
+/* Mobile Responsive Styles */
+@media (min-width: 0) and (max-width: 767.98px) {
+  .contact_us {
+    height: auto;
+    min-height: 310px;
+    padding: 40px 20px;
+  }
+
+  .h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .button {
+    font-size: 14px;
+    padding: 12px 24px;
+  }
+
+  .newsletter {
+    padding: 20px 15px;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .newsletter h2 {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .input {
+    font-size: 14px;
+    padding: 12px 15px;
+  }
+
+  .submit {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+}
+
+/* Tablet Responsive Styles */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .contact_us {
+    height: auto;
+    min-height: 310px;
+    padding: 50px 30px;
+  }
+
+  .h1 {
+    font-size: 36px;
+  }
+
+  .form {
+    width: 450px;
+  }
 }

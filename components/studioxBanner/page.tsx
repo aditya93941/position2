@@ -23,7 +23,7 @@ export default function StudioxBanner() {
 
     return (
         <>
-             <section className={styles.studioxContainer} aria-label="StudioX Hero Section">
+             <section className={styles.bannerSection} aria-label="StudioX Hero Section">
                 <video 
                     key={videoSrc}
                     loop 

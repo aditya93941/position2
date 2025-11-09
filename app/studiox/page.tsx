@@ -16,9 +16,9 @@ export const page = () => {
                 <StudioxBanner />
                 <Studiox3D />
                 <StudioxCarousal />
+                <StudioxGotALaunch />
                 <StudioxFeatures />
                 <StudioxBattleTested />
-                <StudioxGotALaunch />
                 <StudioxFooter />
             </main>
             <Footer />

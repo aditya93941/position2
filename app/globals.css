@@ -45,6 +45,11 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .container {
   width: 100%;
   padding-right: 15px;

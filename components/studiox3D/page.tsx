@@ -140,7 +140,8 @@ const Studiox3D = () => {
             </div>
           </div>
           <div className={styles.studiox3DContentWrapper}>
-            <h2 className={styles.studiox3DTitle} id="3d-experience-heading">
+           <div className={styles.studiox3DContentTitleWrapper}>
+           <h2 className={styles.studiox3DTitle} id="3d-experience-heading">
               Decades of 3D Experience. One Scalable Platform
             </h2>
             <p className={styles.studiox3DDescription}>
@@ -152,6 +153,7 @@ const Studiox3D = () => {
               visuals, Studio<sup>X</sup> combines everything we’ve learned into
               one powerful, browser-based solution.
             </p>
+           </div>
             <div className={styles.studiox3DIconsWrapper}>
               <div className={styles.studiox3DIconsItem}>
                 <svg

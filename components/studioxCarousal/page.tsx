@@ -41,6 +41,8 @@ export default function StudioxCarousal() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -48,6 +50,33 @@ export default function StudioxCarousal() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Minimum swipe distance (in pixels)
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      setActiveIndex((prev) => (prev + 1) % videos.length);
+    }
+    if (isRightSwipe) {
+      setActiveIndex((prev) => (prev - 1 + videos.length) % videos.length);
+    }
+  };
 
   useEffect(() => {
     setProgress(0);
@@ -78,8 +107,18 @@ export default function StudioxCarousal() {
             <h2 className={styles.studioxCarousalTitle} id="features-in-motion-heading">Features in Motion</h2>
           </div>
 
-          <div className={styles.studioxCarousalItem}>
+          <div 
+            className={styles.studioxCarousalItem}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <div className={styles.videoContainer}>
+              {isMobile && (
+                <h3 className={styles.mobileVideoTitle}>{videos[activeIndex].title}</h3>
+              )}
             <video
+                key={videos[activeIndex].id}
               src={videos[activeIndex].src}
               autoPlay
               muted
@@ -87,6 +126,7 @@ export default function StudioxCarousal() {
               className={styles.studioxCarousalVideo}
               aria-label={`${videos[activeIndex].title}: ${videos[activeIndex].desc}`}
             ></video>
+            </div>
           </div>
 
           <div className={styles.studioxCarousalControls} role="tablist" aria-label="Video carousel controls">
