@@ -144,5 +144,116 @@
     flex: 1;
 }
 
+/* Mobile Responsive Styles - Exact match from downloaded CSS */
+@media (min-width: 0) and (max-width: 767.98px) {
+    .studioxFeaturesWrapper {
+        padding: 0 15px;
+    }
+
+    .studioxFeaturesTitleWrapper {
+        flex-direction: column;
+        gap: 15px;
+        padding: 85px 0 40px 0;
+    }
+
+    .studioxFeaturesTitleWrapper .studioxFeaturesTitle {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    .studioxFeaturesCardsWrapper {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0;
+    }
+
+    .studioxFeaturesCards {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .studioxFeaturesCardItems {
+        max-width: 100%;
+        flex: 1 100%;
+        flex-direction: column;
+    }
+
+    .studioxFeaturesCardImage {
+        width: 100% !important;
+        height: 200px !important;
+    }
+
+    .studioxFeaturesCardItemsWrapper {
+        max-width: 100%;
+        flex: 0 0 100%;
+        width: 100%;
+        height: auto;
+    }
+
+    .studioxFeaturesCardItemsTwo {
+        height: auto;
+    }
+
+    .studioxFeaturesCardTwo {
+        max-width: 100%;
+        flex: 0 0 100%;
+        width: 100%;
+        height: 300px;
+    }
+
+    .studioxFeaturesCardThree {
+        max-width: 100%;
+        flex: 0 0 100%;
+        width: 100%;
+        height: auto;
+    }
+
+    .studioxFeaturesCardThree img {
+        height: 200px;
+    }
+
+    .studioxFeaturesCard {
+        padding: 15px;
+    }
+
+    .studioxFeaturesCard span {
+        font-size: 18px;
+    }
+
+    .studioxFeaturesCard p {
+        font-size: 14px;
+    }
+}
+
+/* Tablet Responsive Styles */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+    .studioxFeaturesTitleWrapper .studioxFeaturesTitle {
+        font-size: 40px;
+    }
+
+    .studioxFeaturesCardsWrapper {
+        flex-wrap: wrap;
+    }
+
+    .studioxFeaturesCardItemsWrapper {
+        max-width: 50%;
+        flex: 0 0 50%;
+        width: 50%;
+    }
+
+    .studioxFeaturesCardTwo {
+        max-width: 50%;
+        flex: 0 0 50%;
+        width: 50%;
+    }
+
+    .studioxFeaturesCardThree {
+        max-width: 100%;
+        flex: 0 0 100%;
+        width: 100%;
+    }
+}
+
 
 

@@ -105,3 +105,84 @@
 .button2:hover {
     background: linear-gradient(130.35deg, #D3342E 1.92%, #6441A5 98.08%)
 }
+
+/* Mobile Responsive Styles - Matching downloaded CSS exactly */
+@media (min-width: 0) and (max-width: 767.98px) {
+    .studioxContainer {
+        padding-top: 40px !important;
+        height: 100vh;
+        min-height: 600px;
+    }
+
+    .logo {
+        margin-bottom: 20px;
+        width: 120px;
+        height: auto;
+    }
+
+    .h1 {
+        font-size: 32px !important;
+        line-height: 46px !important;
+        margin-top: 36px !important;
+        margin-bottom: 36px !important;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .h2 {
+        font-size: 24px;
+        line-height: 32px;
+        margin-bottom: 24px;
+    }
+
+    .p {
+        font-size: 16px;
+        line-height: 24px;
+        width: 100%;
+        margin: 0 auto 0;
+        padding: 0 15px;
+    }
+
+    .p span {
+        margin-bottom: 28px;
+        font-size: 16px;
+        line-height: 24px;
+        display: block;
+    }
+
+    .buttonWrapper {
+        flex-direction: column;
+        gap: 11px;
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .button1,
+    .button2 {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px 20px;
+        margin-top: 0;
+    }
+}
+
+/* Tablet Responsive Styles */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+    .h1 {
+        font-size: 2.5rem; /* 40px */
+        padding: 0 40px;
+    }
+
+    .h2 {
+        font-size: 1.25rem; /* 20px */
+    }
+
+    .p {
+        font-size: 17px;
+    }
+
+    .buttonWrapper {
+        gap: 15px;
+    }
+}

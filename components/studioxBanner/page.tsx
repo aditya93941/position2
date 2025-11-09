@@ -1,20 +1,40 @@
+"use client";
+import { useEffect, useState } from "react";
 import styles from "./studioxBanner.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function StudioxBanner() {
+    const [videoSrc, setVideoSrc] = useState("https://www.position2.com/wp-content/uploads/2025/09/studiox-desktop.mp4");
+
+    useEffect(() => {
+        const updateVideoSrc = () => {
+            if (window.innerWidth <= 767) {
+                setVideoSrc("https://www.position2.com/wp-content/uploads/2025/09/studiox-mobile.mp4");
+            } else {
+                setVideoSrc("https://www.position2.com/wp-content/uploads/2025/09/studiox-desktop.mp4");
+            }
+        };
+
+        updateVideoSrc();
+        window.addEventListener("resize", updateVideoSrc);
+        return () => window.removeEventListener("resize", updateVideoSrc);
+    }, []);
+
     return (
         <>
              <section className={styles.studioxContainer} aria-label="StudioX Hero Section">
                 <video 
+                    key={videoSrc}
                     loop 
                     autoPlay 
                     muted 
+                    playsInline
                     className={styles.backgroundVideo}
                     aria-label="StudioX product demonstration video"
                 >
                     <source
-                        src="https://www.position2.com/wp-content/uploads/2025/09/studiox-desktop.mp4"
+                        src={videoSrc}
                         type="video/mp4"
                     />
                 </video>

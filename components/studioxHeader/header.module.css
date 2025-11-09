@@ -36,3 +36,29 @@
 .studioxHeaderButton:hover {
     background: linear-gradient(130.35deg, #D3342E 1.92%, #6441A5 98.08%)
 }
+
+/* Mobile Responsive Styles */
+@media (min-width: 0) and (max-width: 767.98px) {
+    .headerWrapper {
+        height: 70px;
+        padding: 0 15px;
+    }
+
+    .studioxHeaderButton {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+/* Tablet Responsive Styles */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+    .headerWrapper {
+        height: 85px;
+        padding: 0 20px;
+    }
+
+    .studioxHeaderButton {
+        font-size: 15px;
+        padding: 11px 22px;
+    }
+}

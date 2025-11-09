@@ -139,7 +139,7 @@ const Studiox3D = () => {
               <p className={styles.studiox3DRotate}>Rotate in 360°</p>
             </div>
           </div>
-          <div>
+          <div className={styles.studiox3DContentWrapper}>
             <h2 className={styles.studiox3DTitle} id="3d-experience-heading">
               Decades of 3D Experience. One Scalable Platform
             </h2>

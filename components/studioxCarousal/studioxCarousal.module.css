@@ -126,4 +126,72 @@ bottom: 0;
       min-width: auto;
     }
   }
+
+/* Mobile Responsive Styles - Exact match from downloaded CSS */
+@media (min-width: 0) and (max-width: 767.98px) {
+    .studioxCarousalWrapper {
+        height: fit-content;
+        padding-bottom: 0;
+    }
+
+    .studioxCarousalTitle {
+        font-size: 32px;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .studioxCarousalItem video {
+        width: 100%;
+        border-radius: 12px;
+        object-fit: contain;
+        height: 100%;
+    }
+
+    .studioxCarousalControls {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 15px;
+    }
+
+    .control {
+        max-width: 100%;
+        flex: 1 100%;
+        width: 100%;
+        background: none;
+        padding: 0;
+        min-width: auto;
+    }
+
+    .control h4 {
+        font-size: 14px;
+    }
+
+    .control p {
+        font-size: 14px;
+    }
+
+    .control .controlContent {
+        padding: 12px;
+    }
+}
+
+/* Tablet Responsive Styles */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+    .studioxCarousalTitle {
+        font-size: 40px;
+    }
+
+    .studioxCarousalItem video {
+        width: 90%;
+    }
+
+    .studioxCarousalControls {
+        flex-wrap: wrap;
+    }
+
+    .control {
+        max-width: calc(100% / 3);
+        flex: 1 calc(100% / 3);
+    }
+}
   
