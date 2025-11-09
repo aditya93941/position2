@@ -1,6 +1,7 @@
 import StudioxHeader from '@/components/studioxHeader/page';
 import StudioxBanner from '@/components/studioxBanner/page';
 import StudioxCarousal from '@/components/studioxCarousal/page';
+import StudioxBattleTested from '@/components/studioxBattleTested/page';
 import StudioxGotALaunch from '@/components/studioxGotALaunch/page';
 import StudioxFooter from '@/components/studoxFooter/page'
 import Studiox3D from '@/components/studiox3D/page';
@@ -15,6 +16,7 @@ export const page = () => {
             <Studiox3D />
             <StudioxCarousal />
             <StudioxFeatures />
+            <StudioxBattleTested />
             <StudioxGotALaunch />
             <StudioxFooter />
             <Footer />
