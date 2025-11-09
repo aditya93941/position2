@@ -1,7 +1,6 @@
 "use client";
 import styles from "./studiox3D.module.css";
-import { createElement, useEffect, useRef } from "react";
-import "@google/model-viewer";
+import { createElement, useEffect, useRef, useState } from "react";
 
 interface ModelViewerProps {
   src?: string;
@@ -23,6 +22,7 @@ const ModelViewer = (props: ModelViewerProps) => {
 };
 
 const Studiox3D = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const modelViewerRef = useRef<any>(null);
 
   // Timer for detecting when the camera is idle
@@ -32,8 +32,17 @@ const Studiox3D = () => {
   // This is the "flag" to prevent our reset logic from triggering itself.
   const isResettingRef = useRef(false);
 
+  // Load model-viewer on client side only (avoids SSR issues)
   useEffect(() => {
-    if (!modelViewerRef.current) return;
+    if (typeof window !== "undefined") {
+      import("@google/model-viewer").then(() => {
+        setIsLoaded(true);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isLoaded || !modelViewerRef.current) return;
 
     const mv = modelViewerRef.current;
     const INITIAL_ORBIT = "0deg 75deg 105%";
@@ -85,26 +94,30 @@ const Studiox3D = () => {
       mv.removeEventListener("interaction-start", handleInteractionStart);
       mv.removeEventListener("camera-change", handleCameraChange);
     };
-  }, []);
+  }, [isLoaded]);
   return (
     <section className="studiox-web" aria-labelledby="3d-experience-heading">
       <div className="container">
         <div className={styles.studiox3DWrapper}>
           <div className={styles.studiox3DModelWrapper}>
-            <ModelViewer
-              ref={modelViewerRef}
-              src="/studiox_cube_glb_v5.glb"
-              alt="Interactive 3D product visualization - rotate to explore"
-              auto-rotate
-              camera-controls
-              rotation-per-second="-10deg"
-              interaction-prompt="none"
-              disable-zoom
-              disable-pan
-              className={styles.modelViewer}
-              exposure="1"
-              aria-label="Interactive 3D product model"
-            />
+            {isLoaded ? (
+              <ModelViewer
+                ref={modelViewerRef}
+                src="/studiox_cube_glb_v5.glb"
+                alt="Interactive 3D product visualization - rotate to explore"
+                auto-rotate
+                camera-controls
+                rotation-per-second="-10deg"
+                interaction-prompt="none"
+                disable-zoom
+                disable-pan
+                className={styles.modelViewer}
+                exposure="1"
+                aria-label="Interactive 3D product model"
+              />
+            ) : (
+              <div className={styles.placeholder} aria-label="Loading 3D model" />
+            )}
             <div className={styles.studiox3DRotateWrapper}>
               <span aria-hidden="true">
                 <svg
