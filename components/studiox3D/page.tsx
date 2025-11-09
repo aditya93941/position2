@@ -15,11 +15,8 @@ interface ModelViewerProps {
   className?: string;
   loading?: string;
   reveal?: string;
-  poster?: string;
   preload?: string;
-  "ar-modes"?: string;
   "shadow-intensity"?: string;
-  "environment-image"?: string;
   ref?: React.Ref<any>;
 }
 
@@ -31,116 +28,64 @@ const ModelViewer = (props: ModelViewerProps) => {
 const Studiox3D = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [shouldLoadModel, setShouldLoadModel] = useState(false);
   const modelViewerRef = useRef<any>(null);
-  const sectionRef = useRef<HTMLElement>(null);
 
   // Timer for detecting when the camera is idle
   const idleTimerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
-  // *** NEW ***
   // This is the "flag" to prevent our reset logic from triggering itself.
   const isResettingRef = useRef(false);
 
-  // Detect mobile device
+  // Detect mobile device - simple check, no resize listener to avoid performance issues
   useEffect(() => {
     const checkMobile = () => {
-      const isMobileDevice = window.innerWidth < 768 || 
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      setIsMobile(isMobileDevice);
+      setIsMobile(window.innerWidth < 768);
     };
-    
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Intersection Observer for lazy loading on mobile
+  // Load model-viewer library immediately (no delays)
   useEffect(() => {
-    if (!isMobile || !sectionRef.current) return;
+    import("@google/model-viewer")
+      .then(() => setIsLoaded(true))
+      .catch((err) => console.error("Failed to load model-viewer", err));
+  }, []);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShouldLoadModel(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { rootMargin: '50px' }
-    );
-
-    observer.observe(sectionRef.current);
-
-    return () => observer.disconnect();
-  }, [isMobile]);
-
-  // Load model-viewer library
-  useEffect(() => {
-    // On desktop, load immediately. On mobile, wait for intersection
-    if (!isMobile) {
-      // Desktop: load immediately
-      import("@google/model-viewer")
-        .then(() => setIsLoaded(true))
-        .catch((err) => console.error("Failed to load model-viewer", err));
-    } else if (shouldLoadModel) {
-      // Mobile: only load when section is in viewport
-      import("@google/model-viewer")
-        .then(() => setIsLoaded(true))
-        .catch((err) => console.error("Failed to load model-viewer", err));
-    }
-  }, [isMobile, shouldLoadModel]);
-
-  // *** REPLACE YOUR OLD EFFECT WITH THIS ONE ***
+  // Camera controls for desktop only
   useEffect(() => {
     if (!isLoaded || !modelViewerRef.current || isMobile) return;
 
     const mv = modelViewerRef.current;
     const INITIAL_ORBIT = "0deg 75deg 105%";
-    const IDLE_TIMEOUT_MS = 300; // How long to wait after camera stops moving
+    const IDLE_TIMEOUT_MS = 300;
 
-    // This is the function that performs the actual reset
     const resetCamera = () => {
-      isResettingRef.current = true; // Set flag: "We are resetting"
+      isResettingRef.current = true;
       mv.cameraOrbit = INITIAL_ORBIT;
       mv.autoRotate = true;
-
-      // After a tiny delay, clear the flag.
-      // This gives time for the 'camera-change' event from the orbit snap to pass.
       setTimeout(() => {
         isResettingRef.current = false;
       }, 100);
     };
 
-    // 1. When interaction starts, stop auto-rotate and clear any pending reset
     const handleInteractionStart = () => {
-      isResettingRef.current = false; // Stop any pending reset
+      isResettingRef.current = false;
       clearTimeout(idleTimerRef.current);
       mv.autoRotate = false;
     };
 
-    // 2. When the camera moves, this event fires.
     const handleCameraChange = () => {
-      // If we are currently resetting OR if we are auto-rotating,
-      // ignore this event completely.
       if (isResettingRef.current || mv.autoRotate) {
         return;
       }
-
-      // If we're here, it means the user is interacting or coasting.
-      // Clear any old timer and set a new one.
       clearTimeout(idleTimerRef.current);
       idleTimerRef.current = setTimeout(resetCamera, IDLE_TIMEOUT_MS);
     };
 
-    // Set initial orbit once
     mv.cameraOrbit = INITIAL_ORBIT;
-
     mv.addEventListener("interaction-start", handleInteractionStart);
     mv.addEventListener("camera-change", handleCameraChange);
 
-    // Cleanup
     return () => {
       clearTimeout(idleTimerRef.current);
       mv.removeEventListener("interaction-start", handleInteractionStart);
@@ -149,14 +94,13 @@ const Studiox3D = () => {
   }, [isLoaded, isMobile]);
   return (
     <section 
-      ref={sectionRef}
       className="studiox-web" 
       aria-labelledby="3d-experience-heading"
     >
       <div className="container">
         <div className={styles.studiox3DWrapper}>
           <div className={styles.studiox3DModelWrapper}>
-            {isLoaded && (!isMobile || shouldLoadModel) ? (
+            {isLoaded ? (
               <ModelViewer
                 ref={modelViewerRef}
                 src="/studiox_cube_glb_v5.glb"
@@ -170,22 +114,13 @@ const Studiox3D = () => {
                 className={styles.modelViewer}
                 exposure="1"
                 aria-label="Interactive 3D product model"
-                loading={isMobile ? "lazy" : "eager"}
-                reveal={isMobile ? "interaction" : "auto"}
-                poster={isMobile ? "/studiox_cube_poster.jpg" : undefined}
-                preload={isMobile ? "none" : "auto"}
-                ar-modes={isMobile ? "" : undefined}
-                shadow-intensity="0"
-                environment-image={isMobile ? "" : undefined}
+                loading="eager"
+                reveal="auto"
+                preload="auto"
+                shadow-intensity={isMobile ? "0" : "1"}
               />
             ) : (
-              <div className={styles.placeholder} aria-label="Loading 3D model">
-                {isMobile && (
-                  <div className={styles.mobilePlaceholder}>
-                    <p>Tap to view 3D model</p>
-                  </div>
-                )}
-              </div>
+              <div className={styles.placeholder} aria-label="Loading 3D model" />
             )}
             <div className={styles.studiox3DRotateWrapper}>
               <span aria-hidden="true">
