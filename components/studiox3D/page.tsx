@@ -13,6 +13,13 @@ interface ModelViewerProps {
   "disable-pan"?: boolean | string;
   exposure?: string;
   className?: string;
+  loading?: string;
+  reveal?: string;
+  poster?: string;
+  preload?: string;
+  "ar-modes"?: string;
+  "shadow-intensity"?: string;
+  "environment-image"?: string;
   ref?: React.Ref<any>;
 }
 
@@ -23,7 +30,10 @@ const ModelViewer = (props: ModelViewerProps) => {
 
 const Studiox3D = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [shouldLoadModel, setShouldLoadModel] = useState(false);
   const modelViewerRef = useRef<any>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Timer for detecting when the camera is idle
   const idleTimerRef = useRef<NodeJS.Timeout | undefined>(undefined);
@@ -32,15 +42,59 @@ const Studiox3D = () => {
   // This is the "flag" to prevent our reset logic from triggering itself.
   const isResettingRef = useRef(false);
 
+  // Detect mobile device
   useEffect(() => {
-    import("@google/model-viewer")
-      .then(() => setIsLoaded(true))
-      .catch((err) => console.error("Failed to load model-viewer", err));
+    const checkMobile = () => {
+      const isMobileDevice = window.innerWidth < 768 || 
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(isMobileDevice);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Intersection Observer for lazy loading on mobile
+  useEffect(() => {
+    if (!isMobile || !sectionRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadModel(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: '50px' }
+    );
+
+    observer.observe(sectionRef.current);
+
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  // Load model-viewer library
+  useEffect(() => {
+    // On desktop, load immediately. On mobile, wait for intersection
+    if (!isMobile) {
+      // Desktop: load immediately
+      import("@google/model-viewer")
+        .then(() => setIsLoaded(true))
+        .catch((err) => console.error("Failed to load model-viewer", err));
+    } else if (shouldLoadModel) {
+      // Mobile: only load when section is in viewport
+      import("@google/model-viewer")
+        .then(() => setIsLoaded(true))
+        .catch((err) => console.error("Failed to load model-viewer", err));
+    }
+  }, [isMobile, shouldLoadModel]);
 
   // *** REPLACE YOUR OLD EFFECT WITH THIS ONE ***
   useEffect(() => {
-    if (!isLoaded || !modelViewerRef.current) return;
+    if (!isLoaded || !modelViewerRef.current || isMobile) return;
 
     const mv = modelViewerRef.current;
     const INITIAL_ORBIT = "0deg 75deg 105%";
@@ -92,29 +146,46 @@ const Studiox3D = () => {
       mv.removeEventListener("interaction-start", handleInteractionStart);
       mv.removeEventListener("camera-change", handleCameraChange);
     };
-  }, [isLoaded]);
+  }, [isLoaded, isMobile]);
   return (
-    <section className="studiox-web" aria-labelledby="3d-experience-heading">
+    <section 
+      ref={sectionRef}
+      className="studiox-web" 
+      aria-labelledby="3d-experience-heading"
+    >
       <div className="container">
         <div className={styles.studiox3DWrapper}>
           <div className={styles.studiox3DModelWrapper}>
-            {isLoaded ? (
+            {isLoaded && (!isMobile || shouldLoadModel) ? (
               <ModelViewer
                 ref={modelViewerRef}
-                src="https://res.cloudinary.com/dcbyjmsdq/image/upload/v1762691625/studiox_cube_glb_v5_dat71g.glb"
+                src="/studiox_cube_glb_v5.glb"
                 alt="Interactive 3D product visualization - rotate to explore"
-                auto-rotate
-                camera-controls
-                rotation-per-second="-10deg"
+                auto-rotate={!isMobile}
+                camera-controls={!isMobile}
+                rotation-per-second={isMobile ? "0deg" : "-10deg"}
                 interaction-prompt="none"
-                disable-zoom
-                disable-pan
+                disable-zoom={isMobile}
+                disable-pan={isMobile}
                 className={styles.modelViewer}
                 exposure="1"
                 aria-label="Interactive 3D product model"
+                loading={isMobile ? "lazy" : "eager"}
+                reveal={isMobile ? "interaction" : "auto"}
+                poster={isMobile ? "/studiox_cube_poster.jpg" : undefined}
+                preload={isMobile ? "none" : "auto"}
+                ar-modes={isMobile ? "" : undefined}
+                shadow-intensity="0"
+                environment-image={isMobile ? "" : undefined}
               />
             ) : (
-              <div className={styles.placeholder} aria-label="Loading 3D model" />
+              <div className={styles.placeholder} aria-label="Loading 3D model">
+                {isMobile && (
+                  <div className={styles.mobilePlaceholder}>
+                    <p>Tap to view 3D model</p>
+                  </div>
+                )}
+              </div>
             )}
             <div className={styles.studiox3DRotateWrapper}>
               <span aria-hidden="true">

@@ -8,6 +8,15 @@
     /* The 'disable-pan' prop handles this correctly. */
 }
 
+@media (max-width: 768px) {
+    .modelViewer {
+        width: 100%;
+        max-width: 100%;
+        height: 300px;
+        min-height: 300px;
+    }
+}
+
 .placeholder {
     width: 645px;
     height: 500px;
@@ -15,6 +24,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .placeholder {
+        width: 100%;
+        max-width: 100%;
+        height: 300px;
+        min-height: 300px;
+    }
+}
+
+.mobilePlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
 }
 
 .studiox3DWrapper{
