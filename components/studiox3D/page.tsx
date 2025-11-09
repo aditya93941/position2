@@ -101,7 +101,7 @@ const Studiox3D = () => {
             {isLoaded ? (
               <ModelViewer
                 ref={modelViewerRef}
-                src="/studiox_cube_glb_v5.glb"
+                src="https://res.cloudinary.com/dcbyjmsdq/image/upload/v1762691625/studiox_cube_glb_v5_dat71g.glb"
                 alt="Interactive 3D product visualization - rotate to explore"
                 auto-rotate
                 camera-controls
