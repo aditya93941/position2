@@ -8,15 +8,6 @@
     /* The 'disable-pan' prop handles this correctly. */
 }
 
-@media (max-width: 768px) {
-    .modelViewer {
-        width: 100%;
-        max-width: 100%;
-        height: 300px;
-        min-height: 300px;
-    }
-}
-
 .placeholder {
     width: 645px;
     height: 500px;
@@ -25,16 +16,6 @@
     align-items: center;
     justify-content: center;
 }
-
-@media (max-width: 768px) {
-    .placeholder {
-        width: 100%;
-        max-width: 100%;
-        height: 300px;
-        min-height: 300px;
-    }
-}
-
 
 .studiox3DWrapper{
     display: flex;

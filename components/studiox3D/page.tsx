@@ -13,10 +13,6 @@ interface ModelViewerProps {
   "disable-pan"?: boolean | string;
   exposure?: string;
   className?: string;
-  loading?: string;
-  reveal?: string;
-  preload?: string;
-  "shadow-intensity"?: string;
   ref?: React.Ref<any>;
 }
 
@@ -27,76 +23,78 @@ const ModelViewer = (props: ModelViewerProps) => {
 
 const Studiox3D = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const modelViewerRef = useRef<any>(null);
 
   // Timer for detecting when the camera is idle
   const idleTimerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
+  // *** NEW ***
   // This is the "flag" to prevent our reset logic from triggering itself.
   const isResettingRef = useRef(false);
 
-  // Detect mobile device - simple check, no resize listener to avoid performance issues
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-  }, []);
-
-  // Load model-viewer library immediately (no delays)
   useEffect(() => {
     import("@google/model-viewer")
       .then(() => setIsLoaded(true))
       .catch((err) => console.error("Failed to load model-viewer", err));
   }, []);
 
-  // Camera controls for desktop only
+  // *** REPLACE YOUR OLD EFFECT WITH THIS ONE ***
   useEffect(() => {
-    if (!isLoaded || !modelViewerRef.current || isMobile) return;
+    if (!isLoaded || !modelViewerRef.current) return;
 
     const mv = modelViewerRef.current;
     const INITIAL_ORBIT = "0deg 75deg 105%";
-    const IDLE_TIMEOUT_MS = 300;
+    const IDLE_TIMEOUT_MS = 300; // How long to wait after camera stops moving
 
+    // This is the function that performs the actual reset
     const resetCamera = () => {
-      isResettingRef.current = true;
+      isResettingRef.current = true; // Set flag: "We are resetting"
       mv.cameraOrbit = INITIAL_ORBIT;
       mv.autoRotate = true;
+
+      // After a tiny delay, clear the flag.
+      // This gives time for the 'camera-change' event from the orbit snap to pass.
       setTimeout(() => {
         isResettingRef.current = false;
       }, 100);
     };
 
+    // 1. When interaction starts, stop auto-rotate and clear any pending reset
     const handleInteractionStart = () => {
-      isResettingRef.current = false;
+      isResettingRef.current = false; // Stop any pending reset
       clearTimeout(idleTimerRef.current);
       mv.autoRotate = false;
     };
 
+    // 2. When the camera moves, this event fires.
     const handleCameraChange = () => {
+      // If we are currently resetting OR if we are auto-rotating,
+      // ignore this event completely.
       if (isResettingRef.current || mv.autoRotate) {
         return;
       }
+
+      // If we're here, it means the user is interacting or coasting.
+      // Clear any old timer and set a new one.
       clearTimeout(idleTimerRef.current);
       idleTimerRef.current = setTimeout(resetCamera, IDLE_TIMEOUT_MS);
     };
 
+    // Set initial orbit once
     mv.cameraOrbit = INITIAL_ORBIT;
+
     mv.addEventListener("interaction-start", handleInteractionStart);
     mv.addEventListener("camera-change", handleCameraChange);
 
+    // Cleanup
     return () => {
       clearTimeout(idleTimerRef.current);
       mv.removeEventListener("interaction-start", handleInteractionStart);
       mv.removeEventListener("camera-change", handleCameraChange);
     };
-  }, [isLoaded, isMobile]);
+  }, [isLoaded]);
   return (
-    <section 
-      className="studiox-web" 
-      aria-labelledby="3d-experience-heading"
-    >
+    <section className="studiox-web" aria-labelledby="3d-experience-heading">
       <div className="container">
         <div className={styles.studiox3DWrapper}>
           <div className={styles.studiox3DModelWrapper}>
@@ -105,19 +103,15 @@ const Studiox3D = () => {
                 ref={modelViewerRef}
                 src="/studiox_cube_glb_v5.glb"
                 alt="Interactive 3D product visualization - rotate to explore"
-                auto-rotate={!isMobile}
-                camera-controls={!isMobile}
-                rotation-per-second={isMobile ? "0deg" : "-10deg"}
+                auto-rotate
+                camera-controls
+                rotation-per-second="-10deg"
                 interaction-prompt="none"
-                disable-zoom={isMobile}
-                disable-pan={isMobile}
+                disable-zoom
+                disable-pan
                 className={styles.modelViewer}
                 exposure="1"
                 aria-label="Interactive 3D product model"
-                loading="eager"
-                reveal="auto"
-                preload="auto"
-                shadow-intensity={isMobile ? "0" : "1"}
               />
             ) : (
               <div className={styles.placeholder} aria-label="Loading 3D model" />
