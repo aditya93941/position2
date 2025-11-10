@@ -6,6 +6,10 @@ import BlogFilter from "../../components/blogFilter/page";
 import GetInTouch from "@/components/getInTouch/page";
 import type { Metadata } from "next";
 
+// Incremental Static Regeneration: Revalidate every 10 seconds
+// Pages are statically generated and revalidated in the background
+export const revalidate = 10;
+
 export const metadata: Metadata = {
   title: "Blog - Marketing Insights & Growth Strategies | Position²",
   description: "Elevate your marketing game with AI-driven expert insights. Read our latest articles on digital marketing, SEO, content creation, and growth strategies.",

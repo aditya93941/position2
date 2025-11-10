@@ -3,6 +3,10 @@ import Image from "next/image";
 import styles from "./blogDetail.module.css";
 import type { Metadata } from "next";
 
+// Incremental Static Regeneration: Revalidate every 10 seconds
+// Pages are statically generated and revalidated in the background
+export const revalidate = 10;
+
 interface Params {
   params: Promise<{ slug: string }> | { slug: string };
 }
