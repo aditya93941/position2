@@ -20,6 +20,9 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <>
+      <a href="#main-content" className="skip-to-main">
+        Skip to main content
+      </a>
       <Header />
       <Banner />
       <main id="main-content">

@@ -85,10 +85,17 @@
     padding: 7px 20px;
     line-height: 1;
     text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .cardLink:hover {
-border-color: #d8342f;
+    border-color: #d8342f;
+}
+
+.cardLink:focus-visible {
+    outline-offset: 2px;
+    border-color: #d8342f;
 }
 
 

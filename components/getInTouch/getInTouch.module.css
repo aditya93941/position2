@@ -29,10 +29,15 @@
   border-radius: 25px;
   cursor: pointer;
   transition: 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 .button:hover {
   background-color: #fff;
   color: #000;
+}
+.button:focus-visible {
+  outline-offset: 2px;
 }
 
 .newsletter {
@@ -73,6 +78,10 @@
   color: #ccc;
 }
 
+.input:focus {
+  outline-offset: 2px;
+}
+
 .submit {
   background-color: #fff;
   color: #000;
@@ -82,10 +91,16 @@
   font-size: 14px;
   cursor: pointer;
   transition: 0.3s ease;
+  font-weight: 500;
 }
 
 .submit:hover {
   transition: 0.3s ease;
+  opacity: 0.9;
+}
+
+.submit:focus-visible {
+  outline-offset: 2px;
 }
 
 /* Mobile Responsive Styles */

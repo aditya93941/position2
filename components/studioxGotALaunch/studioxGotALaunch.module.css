@@ -140,7 +140,6 @@
     font-family: inherit;
 }
 .dot:focus {
-    outline: 2px solid #6441A5;
     outline-offset: 2px;
 }
 

@@ -66,6 +66,24 @@
   align-items: center;
 }
 
+.links li a {
+  color: #bbb;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.links li a:hover,
+.links li a:focus {
+  color: #fff;
+  text-decoration: underline;
+  outline: none;
+}
+
+.links li a:focus-visible {
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 .links li:not(:last-child)::after {
   content: "|";
   margin-left: 8px;
@@ -75,6 +93,14 @@
 .socials {
   display: flex;
   gap: 12px;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.socials li {
+  display: flex;
   align-items: center;
 }
 
@@ -88,6 +114,8 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
+  color: #fff;
 }
 
 .socialIcon svg {
@@ -95,9 +123,15 @@
   color: #fff;
 }
 
-.socialIcon:hover {
+.socialIcon:hover,
+.socialIcon:focus {
   border-color: #999;
   background-color: rgb(0, 123, 255);
+  outline-offset: 2px;
+}
+
+.socialIcon:focus-visible {
+  outline-offset: 2px;
 }
 
 /* Desktop Responsive Styles */

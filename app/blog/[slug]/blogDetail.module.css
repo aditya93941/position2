@@ -32,10 +32,31 @@
 .blogDetailContent :global(img) {
   max-width: 100%;
   height: auto;
+  border-radius: 0.5rem;
+}
+
+.blogDetailContent :global(img:not([alt])) {
+  border: 2px dashed #ef4444;
 }
 
 .blogDetailContent :global(p) {
   margin-bottom: 1rem;
+}
+
+.blogDetailContent :global(a) {
+  text-decoration: underline;
+}
+
+.blogDetailContent :global(a:hover),
+.blogDetailContent :global(a:focus) {
+  color: #d8342f;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.blogDetailContent :global(a:focus-visible) {
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* Mobile Responsive Styles */

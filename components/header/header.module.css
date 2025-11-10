@@ -33,5 +33,11 @@
     font-weight: 700;
     color: #fff;
     cursor: pointer;
-   
+    background: transparent;
+    border: none;
+}
+
+.menuButton:focus-visible {
+    outline-offset: 2px;
+    border-radius: 2px;
 }

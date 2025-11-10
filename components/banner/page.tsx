@@ -42,7 +42,11 @@ const banner = () => {
             <p className={styles.description}>
             Elevate your marketing game with our AI-driven expert insights
             </p>
-            <Link href="/" className={styles.button} aria-label="Get in touch with Position²">
+            <Link 
+              href="/" 
+              className={styles.button} 
+              aria-label="Get in touch with Position²"
+            >
               Get in touch
             </Link>
           </div>

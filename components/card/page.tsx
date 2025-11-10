@@ -45,6 +45,7 @@ export default async function CardComponent() {
                     height={250}
                     className={styles.image}
                     itemProp="image"
+                    loading="lazy"
                   />
                 </Link>
               </div>

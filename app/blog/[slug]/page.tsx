@@ -78,12 +78,17 @@ export default async function BlogDetailsPage({ params }: Params) {
 
   if (!blog) {
     return (
-      <main className={styles.blogDetailContainer}>
-        <div className="text-center py-10">
-          <h1>Blog Post Not Found</h1>
-          <p>The blog post you're looking for doesn't exist.</p>
-        </div>
-      </main>
+      <>
+        <a href="#main-content" className="skip-to-main">
+          Skip to main content
+        </a>
+        <main id="main-content" className={styles.blogDetailContainer}>
+          <div className="text-center py-10">
+            <h1>Blog Post Not Found</h1>
+            <p>The blog post you're looking for doesn't exist.</p>
+          </div>
+        </main>
+      </>
     );
   }
 
@@ -100,8 +105,12 @@ export default async function BlogDetailsPage({ params }: Params) {
     : "Date not available";
 
   return (
-    <main className={styles.blogDetailContainer}>
-      <article itemScope itemType="https://schema.org/BlogPosting">
+    <>
+      <a href="#main-content" className="skip-to-main">
+        Skip to main content
+      </a>
+      <main id="main-content" className={styles.blogDetailContainer}>
+        <article itemScope itemType="https://schema.org/BlogPosting">
         {blog.featuredImage?.node?.sourceUrl && (
           <Image
             src={blog.featuredImage.node.sourceUrl}
@@ -129,11 +138,13 @@ export default async function BlogDetailsPage({ params }: Params) {
           className={`prose prose-lg ${styles.blogDetailContent}`}
           dangerouslySetInnerHTML={{ __html: blog.content }}
           itemProp="articleBody"
+          role="article"
         />
         <div itemProp="author" itemScope itemType="https://schema.org/Organization" className="sr-only">
           <span itemProp="name">Position²</span>
         </div>
-      </article>
-    </main>
+        </article>
+      </main>
+    </>
   );
 }

@@ -95,10 +95,15 @@
         border-radius:25px;
         cursor: pointer;
         transition: 0.5s all;
+        text-decoration: none;
+        display: inline-block;
         &:hover{
             background-color: #fff;
             color: #000;
             transition: 0.5s all;
+        }
+        &:focus-visible {
+            outline-offset: 2px;
         }
 
     }

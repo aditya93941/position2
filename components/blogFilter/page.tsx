@@ -72,7 +72,7 @@ export default function BlogFilter() {
               aria-controls="categories-filter"
               aria-label="Toggle categories filter"
             >
-              Categories {activeSection === 'categories' ? '−' : '+'}
+              Categories {activeSection === 'categories' ? '+' : '+'}
             </button>
           </li>
           <li role="none">
@@ -83,7 +83,7 @@ export default function BlogFilter() {
               aria-controls="authors-filter"
               aria-label="Toggle authors filter"
             >
-              Authors {activeSection === 'authors' ? '−' : '+'}
+              Authors {activeSection === 'authors' ? '+' : '+'}
             </button>
           </li>
           <li role="none">
@@ -94,7 +94,7 @@ export default function BlogFilter() {
               aria-controls="archive-filter"
               aria-label="Toggle archive filter"
             >
-              Archive {activeSection === 'archive' ? '−' : '+'}
+              Archive {activeSection === 'archive' ? '+' : '+'}
             </button>
           </li>
         </ul>
