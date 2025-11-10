@@ -17,7 +17,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       blog(id: $slug, idType: SLUG) {
         title
         date
-        excerpt
         featuredImage {
           node {
             sourceUrl
