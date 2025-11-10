@@ -72,6 +72,11 @@ export default async function BlogDetailsPage({ params }: Params) {
       })
     : "Date not available";
 
+  // Create cache-busting URL for image to force reload when blog data changes
+  const imageUrl = blog.featuredImage?.node?.sourceUrl 
+    ? `${blog.featuredImage.node.sourceUrl}${blog.featuredImage.node.sourceUrl.includes('?') ? '&' : '?'}v=${blog.date || Date.now()}`
+    : null;
+
   return (
     <>
       <a href="#main-content" className="skip-to-main">
@@ -79,10 +84,11 @@ export default async function BlogDetailsPage({ params }: Params) {
       </a>
       <main id="main-content" className={styles.blogDetailContainer}>
         <article itemScope itemType="https://schema.org/BlogPosting">
-        {blog.featuredImage?.node?.sourceUrl && (
+        {imageUrl && (
           <Image
-            src={blog.featuredImage.node.sourceUrl}
-            alt={blog.featuredImage.node.altText || `Featured image for ${blog.title}`}
+            key={`${blog.slug}-${blog.date}`}
+            src={imageUrl}
+            alt={blog.featuredImage?.node?.altText || `Featured image for ${blog.title}`}
             width={800}
             height={400}
             className={`rounded-lg ${styles.blogDetailImage}`}

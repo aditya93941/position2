@@ -162,6 +162,11 @@ export default function CardClient({ initialBlogs }: CardClientProps) {
         return <BlogCardSkeleton key={blog.slug} />;
       }
 
+      // Create cache-busting URL for image to force reload when blog data changes
+      const imageUrl = blog.featuredImage?.node?.sourceUrl 
+        ? `${blog.featuredImage.node.sourceUrl}${blog.featuredImage.node.sourceUrl.includes('?') ? '&' : '?'}v=${blog.date || Date.now()}`
+        : "/rendering-platform-featured.jpg";
+
       return (
         <article 
           key={blog.slug} 
@@ -173,16 +178,15 @@ export default function CardClient({ initialBlogs }: CardClientProps) {
           <div className={styles.cardHeader}>
             <Link href={`/blog/${blog.slug}`} aria-label={`Read article: ${blog.title}`}>
               <Image
-                src={
-                  blog.featuredImage?.node?.sourceUrl ||
-                  "/rendering-platform-featured.jpg"
-                }
+                key={`${blog.slug}-${blog.date}`}
+                src={imageUrl}
                 alt={blog.featuredImage?.node?.altText || `Featured image for ${blog.title}`}
                 width={400}
                 height={250}
                 className={styles.image}
                 itemProp="image"
                 loading="lazy"
+                unoptimized={false}
               />
             </Link>
           </div>
