@@ -21,10 +21,11 @@ export async function POST(req: Request) {
       await revalidatePath(`/blog/${slug}`);
       
       // Revalidate the cached data tagged with blog-<slug>
-      await revalidateTag(`blog-${slug}`);
+      // Second argument 'max' means immediate revalidation
+      await revalidateTag(`blog-${slug}`, 'max');
       
       // Also revalidate the blogs list
-      await revalidateTag('blogs');
+      await revalidateTag('blogs', 'max');
       
       return NextResponse.json({ 
         revalidated: true, 
@@ -35,7 +36,7 @@ export async function POST(req: Request) {
 
     // Revalidate all blogs (e.g., when new post is added)
     if (type === 'blogs') {
-      await revalidateTag('blogs');
+      await revalidateTag('blogs', 'max');
       await revalidatePath('/blog');
       
       return NextResponse.json({ 
@@ -47,7 +48,7 @@ export async function POST(req: Request) {
 
     // Revalidate author (if needed in future)
     if (type === 'author' && id) {
-      await revalidateTag(`author-${id}`);
+      await revalidateTag(`author-${id}`, 'max');
       return NextResponse.json({ 
         revalidated: true, 
         tags: [`author-${id}`]
