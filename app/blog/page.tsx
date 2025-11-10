@@ -1,14 +1,16 @@
+import { Suspense } from 'react';
 import Header from "../../components/header/page";
 import Banner from "../../components/banner/page";
 import Footer from "../../components/footer/page";
 import CardComponent from "../../components/card/page";
 import BlogFilter from "../../components/blogFilter/page";
 import GetInTouch from "@/components/getInTouch/page";
+import BlogLoading from "./loading";
 import type { Metadata } from "next";
 
-// Incremental Static Regeneration: Revalidate every 10 seconds
-// Pages are statically generated and revalidated in the background
-export const revalidate = 10;
+// With Cache Components enabled, pages are dynamic by default
+// Caching is controlled by 'use cache' directives in functions
+// No need for revalidate export - cacheLife handles it
 
 export const metadata: Metadata = {
   title: "Blog - Marketing Insights & Growth Strategies | Position²",
@@ -31,7 +33,10 @@ const page = () => {
       <Banner />
       <main id="main-content">
         <BlogFilter />
-        <CardComponent />
+        {/* Suspense boundary: Only blog cards show loading, rest stays cached */}
+        <Suspense fallback={<BlogLoading />}>
+          <CardComponent />
+        </Suspense>
         <GetInTouch />
       </main>
       <Footer />

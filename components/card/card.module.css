@@ -104,6 +104,45 @@
     color: #53555f;
 }
 
+/* Skeleton Loading Styles */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.skeletonCard {
+    opacity: 0.6;
+}
+
+.skeletonImage {
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0;
+    border-radius: 20px 20px 0 0;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonLine {
+    height: 14px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonButton {
+    height: 32px;
+    width: 100px;
+    background-color: #e0e0e0;
+    border-radius: 50px;
+    margin-top: 10px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
 /* Mobile Responsive Styles */
 @media (min-width: 0) and (max-width: 767.98px) {
     .cardContainer {

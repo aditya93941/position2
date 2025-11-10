@@ -1,11 +1,10 @@
-import { client, GET_ALL_BLOGS } from "../../../lib/graphql";
+import { getBlogBySlug } from "../../../lib/graphql";
 import Image from "next/image";
 import styles from "./blogDetail.module.css";
 import type { Metadata } from "next";
 
-// Incremental Static Regeneration: Revalidate every 10 seconds
-// Pages are statically generated and revalidated in the background
-export const revalidate = 10;
+// With Cache Components, pages are dynamic by default
+// Caching controlled by 'use cache' in getBlogBySlug function
 
 interface Params {
   params: Promise<{ slug: string }> | { slug: string };
@@ -15,24 +14,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams.slug;
 
-  const data = await client.request(
-    `
-    query GetBlogBySlug($slug: ID!) {
-      blog(id: $slug, idType: SLUG) {
-        title
-        date
-        featuredImage {
-          node {
-            sourceUrl
-            altText
-          }
-        }
-      }
-    }
-  `,
-    { slug }
-  );
-
+  const data = await getBlogBySlug(slug);
   const blog = data.blog;
 
   if (!blog) {
@@ -58,25 +40,8 @@ export default async function BlogDetailsPage({ params }: Params) {
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams.slug;
 
-  const data = await client.request(
-    `
-    query GetBlogBySlug($slug: ID!) {
-      blog(id: $slug, idType: SLUG) {
-        date
-        title
-        content
-        featuredImage {
-          node {
-            sourceUrl
-            altText
-          }
-        }
-      }
-    }
-  `,
-    { slug }
-  );
-
+  // Use cached function - automatically cached with Cache Components
+  const data = await getBlogBySlug(slug);
   const blog = data.blog;
 
   if (!blog) {
